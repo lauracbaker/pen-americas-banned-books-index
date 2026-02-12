@@ -1,4 +1,0 @@
-"0","banned_titles_chart <- banned_titles |> "
-"0","  mutate("
-"0","    total_titles = as.numeric(total_titles)"
-"0","  )"

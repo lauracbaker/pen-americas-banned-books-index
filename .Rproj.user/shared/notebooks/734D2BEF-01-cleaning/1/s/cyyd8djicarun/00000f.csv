@@ -1,2 +1,0 @@
-"0","clean_states |> "
-"0","  write_rds(""data-processed/statewide-ban.rds"")"

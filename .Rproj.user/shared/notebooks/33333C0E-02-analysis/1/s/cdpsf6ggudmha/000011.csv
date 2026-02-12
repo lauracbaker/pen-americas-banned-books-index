@@ -1,6 +1,0 @@
-"0","district_chart |> "
-"0","ggplot("
-"0","  aes(x = total_bans, y = district"
-"0","      )"
-"0",") +"
-"0","  geom_point(aes(color = year))"

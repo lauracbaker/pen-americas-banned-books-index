@@ -1,6 +1,0 @@
-"0","laketravis_chart |> "
-"0","  ggplot("
-"0","    aes(x = total_bans, y = year) "
-"0","  ) +"
-"0","  geom_point() +"
-"0","  geom_line()"

@@ -1,4 +1,0 @@
-"0","state_clean <- state_raw |> "
-"0","  clean_names()"
-"0",""
-"0","state_clean"

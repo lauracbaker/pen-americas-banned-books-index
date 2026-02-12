@@ -1,2 +1,0 @@
-"0","avg_populations |> "
-"0","  write_rds(""data-processed/avg_populations.rds"")"

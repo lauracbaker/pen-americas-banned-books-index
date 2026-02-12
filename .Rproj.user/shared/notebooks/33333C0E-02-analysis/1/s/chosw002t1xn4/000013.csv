@@ -1,5 +1,0 @@
-"0","titles_per_pop |> "
-"0","  group_by(state) |> "
-"0","    summarise(bans_per_pop = mean(total_titles / population * 100000, na.rm = TRUE)"
-"0","  ) |> "
-"0","  arrange(bans_per_pop |> desc())"

@@ -1,5 +1,0 @@
-"0",""
-"0","PEN_files |> "
-"0","  group_by(state) |> "
-"0","  count(author) |> "
-"0","  arrange(n |> desc())"

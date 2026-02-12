@@ -1,6 +1,0 @@
-"0","avg_populations <- census_clean |> "
-"0","  mutate(state = name,"
-"0","         population = b01003001) |> "
-"0","  select(!c(b01003001, name))"
-"0",""
-"0","avg_populations"

@@ -1,7 +1,0 @@
-"0","PEN_files |> "
-"0","  group_by(author,title) |> "
-"0","  count(title, sort = T) |> "
-"0","  mutate(n = n |> as.numeric()) |> "
-"0","  mutate(summed_appearances = n) |> "
-"0","  select(!n) |> "
-"0","  arrange(summed_appearances |> desc())"

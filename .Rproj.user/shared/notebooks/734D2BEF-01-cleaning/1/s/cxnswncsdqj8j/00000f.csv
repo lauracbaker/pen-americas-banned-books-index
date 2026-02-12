@@ -1,3 +1,0 @@
-"0","PEN_ban_type <- PEN_columns |> "
-"0","  mutate(ban_standing = if_else(is.na(type_of_ban), ban_status, type_of_ban)) |> "
-"0","  select(!c(ban_status, type_of_ban)) "

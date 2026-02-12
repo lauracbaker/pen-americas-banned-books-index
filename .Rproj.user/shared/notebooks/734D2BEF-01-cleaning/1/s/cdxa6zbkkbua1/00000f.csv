@@ -1,6 +1,0 @@
-"0","PEN_columns <- PEN_data |> "
-"0","  mutate(year = str_extract(school_year, ""\\d{4}-\\d{4}"")) |> "
-"0","  select(!school_year)"
-"0",""
-"0","PEN_columns |> "
-"0","  arrange(desc(year)) "
