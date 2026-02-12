@@ -1,0 +1,6 @@
+"0","state_dates <- state_clean |> "
+"0","  mutate("
+"0","    date_removed_challenged = ymd(date_of_challenge_removal)"
+"0","  ) "
+"0",""
+"0","state_dates"

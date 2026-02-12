@@ -1,0 +1,5 @@
+"0","census_clean <- census_data |> "
+"0","  clean_names() |> "
+"0","  select(!c(b01003001_error,geoid))"
+"0",""
+"0","census_clean"

@@ -1,0 +1,5 @@
+"0",""
+"0","options(scipen = 999)"
+"0",""
+"0","titles_per_pop |> "
+"0","  mutate(total_titles / (population * 100000))"

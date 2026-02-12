@@ -1,0 +1,226 @@
+---
+title: "01-cleaning"
+format: html
+---
+
+## Goals of this notebook
+
+The steps we'll take to prepare our data:
+
+- Download the all data
+- Import it into our notebook
+- Build a vector for PEN data
+- Remove unneeded columns
+- Clean dates and column names
+- Export the all clean data for next notebook
+
+## Setup
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(janitor)
+```
+
+## Import Data
+
+Importing all files separately to view the data individually. Want to make sure all rows and columns are the same. 
+
+PEN 2021-2022
+
+```{r}
+PEN_21 <- read_csv("data-original/laura-PEN/2021-2022_PEN_Index.csv")
+```
+PEN 2022-2023
+
+```{r}
+PEN_22 <- read_csv("data-original/laura-PEN/2022-2023_PEN_Index.csv")
+```
+
+PEN 2023-2024
+
+```{r}
+PEN_23 <- read_csv("data-original/laura-PEN/2023-2024_PEN_Index.csv")
+
+PEN_23 |> glimpse()
+```
+
+PEN 2024-2025
+
+```{r}
+PEN_24 <- read_csv("data-original/laura-PEN/2024-2025_PEN_Index.csv")
+```
+
+District
+
+```{r}
+district_raw <- read_csv("data-original/laura-PEN/2024-2025_Districts.csv")
+```
+
+Statewide
+
+```{r}
+state_raw <- read_csv("data-original/laura-PEN/2024_2025_Statewide.csv")
+```
+
+## PEN data
+Build a vector of files to import
+
+```{r}
+PEN_files_raw <- list.files(
+  "data-original/laura-PEN",
+  pattern = "PEN",
+  full.names = TRUE
+)
+
+PEN_files_raw 
+```
+
+## Map, import, bind
+
+```{r}
+PEN_data <- PEN_files_raw |> 
+  set_names(basename) |> 
+    map(read_csv) |> 
+  list_rbind(names_to = "school_year") |> 
+  clean_names()
+
+PEN_data |> nrow()
+PEN_data |> head()
+PEN_data |> tail()
+```
+```{r}
+PEN_data |> 
+  filter(school_year == "2023-2024_PEN_Index.csv")
+```
+
+## Clean school years, remove string column
+
+```{r}
+PEN_columns <- PEN_data |> 
+  mutate(year = str_extract(school_year, "\\d{4}-\\d{4}")) |> 
+  select(!school_year)
+
+PEN_columns |> 
+  arrange(desc(year)) 
+```
+
+## Join Ban Status and Ban Type column; Series and Series Name
+
+```{r}
+PEN_ban_type <- PEN_columns |> 
+  mutate(ban_standing = if_else(is.na(type_of_ban), ban_status, type_of_ban)) |> 
+  select(!c(ban_status, type_of_ban)) 
+```
+
+```{r}
+PEN_files_clean <- PEN_ban_type |> 
+  mutate(book_series = if_else(is.na(series), series_name, series)) |> 
+  select(!c(series, series_name))
+```
+
+## Export Data
+
+```{r}
+PEN_files_clean |> 
+  write_rds("data-processed/PEN-files.rds")
+```
+
+## State Data
+
+```{r}
+state_clean <- state_raw |> 
+  clean_names()
+
+state_clean
+```
+
+## Clean Dates
+
+```{r}
+state_dates <- state_clean |> 
+  mutate(
+    date_removed_challenged = ymd(date_of_challenge_removal)
+  ) 
+
+state_dates
+```
+
+## Remove Columns
+
+```{r}
+clean_states <- state_dates |> 
+  select(!c(secondary_author_s,illustrator_s,translator_s,series,date_of_challenge_removal))
+```
+
+## Export Clean Data
+
+```{r}
+clean_states |> 
+  write_rds("data-processed/statewide-ban.rds")
+```
+
+## District Data
+
+```{r}
+district_clean <- district_raw |> 
+  clean_names()
+
+district_clean
+```
+
+## Add a date column
+
+```{r}
+district_dates <- district_clean |> 
+  mutate(
+    date_removed = my(date_of_challenge_removal)
+  )
+
+district_dates 
+```
+
+## Export clean data
+
+```{r}
+district_dates |> 
+  write_rds("data-processed/districts-bans.rds")
+```
+
+## Census data
+Import census data
+```{r}
+census_raw <- read_csv("data-original/census-data.csv") 
+
+census_raw
+```
+
+## Clean names, remove unnecessary columns
+
+```{r}
+census_clean <- census_raw |> 
+  clean_names() |> 
+  select(!c(b01003001_error,geoid))
+
+census_clean
+```
+
+## Change column names
+
+```{r}
+avg_populations <- census_clean |> 
+  mutate(state = name,
+         population = b01003001) |> 
+  select(!c(b01003001, name))
+
+avg_populations
+```
+
+## Export data
+```{r}
+avg_populations |> 
+  write_rds("data-processed/avg_populations.rds")
+```

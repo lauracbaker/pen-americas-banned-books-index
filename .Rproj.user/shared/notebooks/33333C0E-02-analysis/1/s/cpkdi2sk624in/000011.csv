@@ -1,0 +1,6 @@
+"0","PEN_files |> "
+"0","  filter(year==""2024-2025"") |> "
+"0","  distinct(state, title, author) |> "
+"0","  group_by(state) |> "
+"0","  summarise(total_titles = n()) |> "
+"0","  arrange(desc(total_titles)) "

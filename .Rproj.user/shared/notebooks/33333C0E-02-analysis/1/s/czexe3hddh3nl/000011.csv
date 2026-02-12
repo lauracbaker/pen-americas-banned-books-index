@@ -1,0 +1,6 @@
+"0","PEN_files |>"
+"0","  group_by(author, year) |> "
+"0","  summarise(author_count = n()) |> "
+"0","  mutate(author_count = author_count |> as.numeric()) |> "
+"0","  filter(author_count >= 25) |> "
+"0","  arrange(year |> desc(), author_count |>  desc()) "

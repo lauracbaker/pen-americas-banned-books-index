@@ -1,0 +1,4 @@
+"0","titles_per_pop <- right_join(avg_populations, ban_per_year, by = ""state"") |> "
+"0","  arrange(total_titles |> desc())"
+"0",""
+"0","titles_per_pop"

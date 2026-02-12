@@ -1,0 +1,6 @@
+"0","district_dates <- district_clean |> "
+"0","  mutate("
+"0","    date_removed = my(date_of_challenge_removal)"
+"0","  )"
+"0",""
+"0","district_dates "

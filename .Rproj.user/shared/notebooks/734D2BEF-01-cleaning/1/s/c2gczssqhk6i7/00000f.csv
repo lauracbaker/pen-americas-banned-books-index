@@ -1,0 +1,2 @@
+"0","clean_states <- state_dates |> "
+"0","  select(!c(secondary_author_s,illustrator_s,translator_s,series,date_of_challenge_removal))"

@@ -1,0 +1,7 @@
+"0","ban_per_year <- PEN_files |> "
+"0","  filter(year == ""2022-2023"") |> "
+"0","  group_by(state) |> "
+"0","  summarise(total_titles = n()) |> "
+"0","  arrange(total_titles |> desc())"
+"0",""
+"0","ban_per_year"
